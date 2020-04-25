@@ -6,9 +6,17 @@ const User = require('../models/user');
 
 router.get('/profile/:userId', (req,res,next) => {
 	const id = req.params.userId;
-	res.status(200).json({
-		message: 'Handling GET request to /user/profile/userId. User Id: ' + id
-	});
+	console.log('here');
+	User.findById(id)
+		.exec()
+		.then(doc => {
+			console.log("From Database" + doc);
+			res.status(200).json(doc);
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({error: err});
+		});
 });
 
 router.post('/create', (req,res,next) => {
