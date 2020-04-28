@@ -30,8 +30,8 @@ router.get('/:countryISO', (req, res, next) => {
 	Leaderboard.find()
 		.exec()
 		.then(leaderboard => {
-			const filteredScoreboard = leaderboard.scoreboard.filter(d => d.country == req.params.countryISO);
-			res.status(200).json(scoreboard);
+			const filteredScoreboard = leaderboard[0].scoreboard.filter(d => d.country == req.params.countryISO);
+			res.status(200).json(filteredScoreboard);
 		})
 		.catch(err => {
 			res.status(404).json({
