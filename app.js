@@ -9,7 +9,7 @@ const scoreRouter = require('./api/routers/score');
 const userRouter = require('./api/routers/user');
 
 
-mongoose.connect('mongodb+srv://user-semih:pw-semih@leaderboard-aqqlj.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://user-semih:' + process.env.MONGO_ATLAS_PW + '@leaderboard-aqqlj.mongodb.net/test?retryWrites=true&w=majority',
 					{
 						useNewUrlParser: true,
 						useUnifiedTopology: true

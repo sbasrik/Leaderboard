@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 var userS = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  user_id: Number,
+  user_id: String,
   rank: Number,
   points: Number,
   display_name: String,

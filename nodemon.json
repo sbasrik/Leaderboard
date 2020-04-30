@@ -1,5 +1,5 @@
 {
 	"env": {
-		"MONGO_ATLAS_PW": "password-semih"
+		"MONGO_ATLAS_PW": "pw-semih"
 	}
 }
