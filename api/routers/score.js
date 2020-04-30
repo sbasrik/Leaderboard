@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
+const User = require('../models/user');
 const Score = require('../models/score');
 
 router.post('/submit', (req,res,next) => {
@@ -8,22 +10,17 @@ router.post('/submit', (req,res,next) => {
 		_id : new mongoose.Types.ObjectId(),
 		score_worth : req.body.score_worth,
 		user_id : req.body.user_id,
-		timestamp: Date.now()
+		timestamp: req.body.timestamp
 	});
 
-	const oldScoreWorth = -1;
-	const newScoreWorth = newScore.score_worth;
-
-	User.find({user_id: newScore.user_id})
+	User.updateOne({user_id: newScore.user_id}, {points: newScore.score_worth})
 		.exec()
-		.then(res => {
-			oldScore = res.score_worth;
-			oldRank = res.rank;
+		.then(result => {
+			res.status(200).json("User's score updated");
 		})
-		.catch(err => console.log(err));
-
-	User.findOneAndUpdate({user_id: newScore.user_id}, {score_worth: newScoreWorth})
-		.catch(err => console.log(err));
+		.catch(err => {
+			res.status(404).json(err);
+		});
 
 /*	if(oldScoreWorth < newScoreWorth){
 		Leaderboard.find({score_worth: {$gt: oldScoreWorth, $lt: newScoreWorth}})
